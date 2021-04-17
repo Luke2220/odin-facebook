@@ -7,5 +7,7 @@ class User < ApplicationRecord
          has_many :comments, as: :commentable
          has_many :friends, class_name: 'User', foreign_key: 'friend_id'
 
-         belongs_to :User
+         has_one_attached :avatar
+
+         belongs_to :User, optional: true
 end
