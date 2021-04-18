@@ -60,6 +60,7 @@ ActiveRecord::Schema.define(version: 2021_04_17_180655) do
     t.string "username"
     t.string "password"
     t.string "friend_id"
+    t.string "friend_request_id"
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"

@@ -5,4 +5,6 @@ Rails.application.routes.draw do
 root to: 'post#index'
 resources :post
 resources :comment
+resources :user, only:[:show]
+resources :friend_request, only:[:create,:update]
 end
