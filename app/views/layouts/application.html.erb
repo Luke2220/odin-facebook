@@ -15,14 +15,15 @@
        <p class="alert"><%= alert %></p>
 
       <%if user_signed_in?%>
-        <%=link_to 'Home', post_index_path%>
+        <%=link_to 'Home', posts_path%>
         <%=link_to 'Profile', user_path(current_user.id)%>
         <%=link_to 'Sign Out', destroy_view_session_path, method: :delete%>
 
        <%if current_user.friend_requests.any?%>
         <%=form_with url: new_friend_request_path, method: :get do |f|%>
+        <p>Friend requests from:</p>
           <%=f.collection_select(:friend_id, current_user.friend_requests, :id, :username)%>
-          <%=f.submit 'accept'%>
+          <%=f.submit 'Accept'%>
         <%end%>
       <%end%>
       <%end%>
