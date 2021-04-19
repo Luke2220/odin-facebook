@@ -6,14 +6,18 @@ class FriendRequestController < ApplicationController
         redirect_to user_path(@user.id), notice: 'Friend Request Sent'
     end
 
-    def update
-       
+    def new
+        @friend = User.find(params[:friend_id])
+       current_user.friends << @friend
+       @friend.friends << current_user
+       current_user.friend_requests.delete(@friend.id)
+       redirect_to user_path(current_user.id), notice: 'Accepted Friend Request'
     end
 
     private
 
     def friend_params
-        params.require(:user).permit(:recipient_id, :sender_id)
+        params.require(:user).permit(:recipient_id, :sender_id,:friend_id)
     end
 
 end

@@ -19,10 +19,12 @@
         <%=link_to 'Profile', user_path(current_user.id)%>
         <%=link_to 'Sign Out', destroy_view_session_path, method: :delete%>
 
-        <%current_user.friend_requests.each do |request|%>
-          <%=collection_select(:user,:friend_id, current_user.friend_requests, :id, :username)%>
-          <%=button_to 'Accept', friend_request_path(:id), method: :patch, :params => {:recipient_id => current_user.id, :sender_id => :id}%>
+       <%if current_user.friend_requests.any?%>
+        <%=form_with url: new_friend_request_path, method: :get do |f|%>
+          <%=f.collection_select(:friend_id, current_user.friend_requests, :id, :username)%>
+          <%=f.submit 'accept'%>
         <%end%>
+      <%end%>
       <%end%>
 
 
