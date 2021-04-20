@@ -1,6 +1,9 @@
 class UserController < ApplicationController
     def show
         @user = User.find(params[:id])
+        if params[:format]
+            @comment = Comment.find(params[:format])
+        end
     end
 
     private

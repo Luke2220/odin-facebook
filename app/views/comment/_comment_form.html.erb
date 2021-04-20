@@ -1,0 +1,6 @@
+<p>Create Comment:</p>
+<%=form_with model: @comment do |f|%>
+<%=f.label :content%>
+<%= f.text_area :content%>
+<%=f.submit 'Post Comment'%>
+<%end%>
