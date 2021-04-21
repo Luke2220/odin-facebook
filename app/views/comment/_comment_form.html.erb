@@ -1,6 +1,6 @@
-<p>Create Comment:</p>
-<%=form_with model: @comment do |f|%>
-<%=f.label :content%>
-<%= f.text_area :content%>
+<%=form_with url: comment_index_path, method: :post do |f|%>
+<%=f.label :content, 'Create Comment:'%><br/>
+<%= f.text_area :content%><br/>
+
 <%=f.submit 'Post Comment'%>
 <%end%>

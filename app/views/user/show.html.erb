@@ -17,11 +17,10 @@
 
 <p><%=post.title%></p>
 <p><%=post.body%></p><br/>
-
-<% if @comment%>
-    
-<%else%>
-    <%=link_to 'Create Comment',new_comment_path%>
+<%=post.comments.each do |comment|%>
+    <p>Comment:</p>
+    <p><%=comment.content%></p>
 <%end%>
 
+    <%= render 'comment/comment_form'%>
 <%end%>
