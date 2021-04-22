@@ -6,10 +6,13 @@ class CommentController < ApplicationController
     end
 
     def create
-        @comment = Comment.new
-        @comment.content = params[:content]
+        @post = Post.find(params[:post_id])
+        @user = User.find(params[:user_id])
+        
+        @comment = @post.comments.build(content: params[:content])
+        @comment.author_name = @user.username
         if @comment.save!
-            redirect_to user_path(current_user, @comment.id), notice: 'Comment posted'
+            redirect_to user_path(current_user), notice: 'Comment posted'
         else 
             render user_path(current_user), alert: 'Comment could not be posted'
         end

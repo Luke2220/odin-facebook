@@ -9,18 +9,21 @@
 
 <p><%=@user.username%>'s posts: </p>
 <%@user.posts.each do |post|%>
+
+<p><%=post.title%></p>
+<p><%=post.body%></p>
+
 <%if post.liked?(@user) == false%>
     <%= link_to 'Like', new_like_path(:user_id => @user.id, :post_id => post.id)%>
 <%else%>
     <%= link_to 'Unlike', like_path(post.get_like(@user)), method: :delete%>
-<%end%>
+<%end%><br/><br/>
 
-<p><%=post.title%></p>
-<p><%=post.body%></p><br/>
-<%=post.comments.each do |comment|%>
-    <p>Comment:</p>
-    <p><%=comment.content%></p>
-<%end%>
 
-    <%= render 'comment/comment_form'%>
+<%post.comments.each do |comment|%>
+    <p><%=comment.author_name%>'s comment:</p>
+    <p><%=comment.content%></p><br/>
+<%end%><br/>
+
+    <%= render 'comment/comment_form', :user => current_user.id, :post => post.id%>
 <%end%>

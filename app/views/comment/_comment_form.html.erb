@@ -1,6 +1,7 @@
 <%=form_with url: comment_index_path, method: :post do |f|%>
 <%=f.label :content, 'Create Comment:'%><br/>
 <%= f.text_area :content%><br/>
-
+<%= f.hidden_field :user_id, value: user%>
+<%= f.hidden_field :post_id, value: post%>
 <%=f.submit 'Post Comment'%>
 <%end%>
