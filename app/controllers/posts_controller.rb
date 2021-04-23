@@ -1,18 +1,18 @@
 class PostsController < ApplicationController
     def index
-        @timeline_posts = Array.new
-        @posts = Post.all
-        @posts.each do |post|
-            if current_user.posts.contains(post)
-                timeline_posts << post
-            else
-                current_user.friends.each do |fri|
-                    if fri.posts.contains(post)
-                        timeline_posts << post
-                    end
-                end
-            end
+        @user_posts = Array.new
+        @user_list = User.where('id = ?',current_user.id).left_outer_joins(current_user.friends)
+        @user_list.each do |user|
+            @user_posts << user.posts
         end
+        p @user_posts
+        @timeline_posts = Post.joins(<<-SQL).
+        INNER JOIN posts user_posts
+        ON posts.id = user_posts.id
+        SQL
+        order(post_date: :desc)
+ 
+      
     end
 
     def new

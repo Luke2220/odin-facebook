@@ -1,6 +1,6 @@
-<%@timeline_posts.includes(:user).each do |post|%>
-    <%=post.user.username%>
-    <%= post.title%>
-    <%=post.body%><br/>
+<br/><%@timeline_posts.each do |post|%>
+    
+    <%= post.title%><br/>
+    <%=post.body%><br/><br/>
 
 <%end%>
