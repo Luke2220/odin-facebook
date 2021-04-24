@@ -1,18 +1,17 @@
 class PostsController < ApplicationController
     def index
         @user_posts = Array.new
-        @user_list = User.where('id = ?',current_user.id).left_outer_joins(current_user.friends)
+        @user_list = Array.new
+
+        current_user.friends.each do |friend|
+            @user_list << friend
+        end
+        @user_list << current_user
+
         @user_list.each do |user|
             @user_posts << user.posts
         end
-        p @user_posts
-        @timeline_posts = Post.joins(<<-SQL).
-        INNER JOIN posts user_posts
-        ON posts.id = user_posts.id
-        SQL
-        order(post_date: :desc)
- 
-      
+        @timeline_posts = Post.order(post_date: :desc).merge(@user_posts.flatten)
     end
 
     def new

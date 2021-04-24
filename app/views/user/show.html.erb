@@ -13,11 +13,13 @@
 <p><%=post.title%></p>
 <p><%=post.body%></p>
 
-<%if post.liked?(@user) == false%>
-    <%= link_to 'Like', new_like_path(:user_id => @user.id, :post_id => post.id)%>
-<%else%>
-    <%= link_to 'Unlike', like_path(post.get_like(@user)), method: :delete%>
-<%end%><br/><br/>
+<%if current_user.id != @user.id%>
+    <%if post.liked?(@user) == false%>
+        <%= link_to 'Like', new_like_path(:user_id => @user.id, :post_id => post.id)%>
+    <%else%>
+        <%= link_to 'Unlike', like_path(post.get_like(@user)), method: :delete%>
+    <%end%><br/><br/>
+<%end%>
 
 
 <%post.comments.each do |comment|%>
