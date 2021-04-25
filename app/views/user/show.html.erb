@@ -3,17 +3,21 @@
 <%end%> 
 <br/>
 <%if @user == current_user%>
-    <%= link_to 'Edit Profile', new_profile_path(:user_id => @user.id)%>
+    <%if @user.profile%>
+         <%= link_to 'Edit Profile', edit_profile_path(@user.profile.id,:user_id => @user.id)%>
+    <%else%>
+         <%= link_to 'Add Info to Profile', new_profile_path(:user_id => @user.id)%>
+    <%end%>
     <%=link_to 'New Post', new_post_path%>
 <%end%>
 <br/><br/>
 
-
+<%if @user.profile%>
 <%=@user.profile.bio%>
-    <%if @user.profile.avatar.attached?%>
+    <%if @user.avatar.attached?%>
         <%=image_tag(@user.profile.avatar)%>
     <%end%>
-
+<%end%>
 
 <p><%=@user.username%>'s posts: </p>
 <%@user.posts.each do |post|%>
