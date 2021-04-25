@@ -3,9 +3,17 @@
 <%end%> 
 <br/>
 <%if @user == current_user%>
+    <%= link_to 'Edit Profile', new_profile_path(:user_id => @user.id)%>
     <%=link_to 'New Post', new_post_path%>
 <%end%>
 <br/><br/>
+
+
+<%=@user.profile.bio%>
+    <%if @user.profile.avatar.attached?%>
+        <%=image_tag(@user.profile.avatar)%>
+    <%end%>
+
 
 <p><%=@user.username%>'s posts: </p>
 <%@user.posts.each do |post|%>

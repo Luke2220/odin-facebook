@@ -8,4 +8,5 @@ resources :comment
 resources :likes, only:[:new, :destroy]
 resources :user, only:[:show]
 resources :friend_request, only:[:create,:new]
+resources :profile, only:[:new,:create]
 end
