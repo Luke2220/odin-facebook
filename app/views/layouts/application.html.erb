@@ -16,6 +16,7 @@
 
       <%if user_signed_in?%>
         <%=link_to 'Home', posts_path%>
+        <%= link_to 'Find Users', user_index_path%>
         <%=link_to 'Profile', user_path(current_user.id)%>
         <%=link_to 'Sign Out', destroy_view_session_path, method: :delete%>
 

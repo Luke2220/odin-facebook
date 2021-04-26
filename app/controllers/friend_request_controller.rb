@@ -2,6 +2,7 @@ class FriendRequestController < ApplicationController
 
     def create
         @user = User.find(params[:recipient_id])
+        @friend_req = User.find(params[:sender_id])
         @user.friend_requests << User.find(params[:sender_id])
         redirect_to user_path(@user.id), notice: 'Friend Request Sent'
     end

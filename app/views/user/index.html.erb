@@ -1,0 +1,10 @@
+<%@users.each do |user|%>
+    <%if user.avatar.attached?%>
+        <%=image_tag(user.avatar)%>
+    <%end%>
+    <%=user.username%>
+    <%p user.friend_requests%>
+    <%if current_user != user && user.already_requested?(current_user) == false%>   
+        <%=button_to 'Send Friend Request', friend_request_index_path, :params => {:recipient_id => user.id, :sender_id => current_user.id}%>
+    <%end%><br/><br/>
+<%end%>

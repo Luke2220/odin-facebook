@@ -12,4 +12,12 @@ class User < ApplicationRecord
         has_one :profile
 
          belongs_to :User, optional: true
+
+         def already_requested?(current_user)
+          if self.friend_requests.exists?(current_user.id)
+            return true
+          end
+          false
+         end
+
 end
