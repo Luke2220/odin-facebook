@@ -2,16 +2,19 @@ class FriendRequestController < ApplicationController
 
     def create
         @user = User.find(params[:recipient_id])
-        @friend_req = User.find(params[:sender_id])
-        @user.friend_requests << User.find(params[:sender_id])
+        @sender = User.find(params[:sender_id])
+        @user.friend_requests.create!(recipient_id: @user.id, sender_id: @sender.id, sender_name: @sender.username)
         redirect_to user_path(@user.id), notice: 'Friend Request Sent'
     end
 
     def new
-        @friend = User.find(params[:friend_id])
-       current_user.friends << @friend
-       @friend.friends << current_user
-       current_user.friend_requests.delete(@friend.id)
+       @friend_request = FriendRequest.find(params[:friend_id])
+
+       current_user.friends << User.find(@friend_request.sender_id)
+       @friend = User.find(@friend_request.recipient_id)
+        @friend.friends << current_user
+
+       @friend_request.destroy
        redirect_to user_path(current_user.id), notice: 'Accepted Friend Request'
     end
 
