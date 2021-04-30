@@ -8,6 +8,7 @@
 User.destroy_all
 Post.destroy_all
 Comment.destroy_all
+FriendRequest.destroy_all
 
 User.create!(username: 'Dave', email: 'dave@fake.com', password: 'davespassword')
 User.create(username: 'Ice', email: 'Ice@fake.com', password: 'Icespassword')

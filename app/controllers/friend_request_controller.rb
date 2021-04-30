@@ -10,9 +10,10 @@ class FriendRequestController < ApplicationController
     def new
        @friend_request = FriendRequest.find(params[:friend_id])
 
-       current_user.friends << User.find(@friend_request.sender_id)
-       @friend = User.find(@friend_request.recipient_id)
-        @friend.friends << current_user
+       @receiver = User.find(@friend_request.recipient_id)
+        @sender = User.find(@friend_request.sender_id)
+        @receiver.friends.create!(friend_username: @sender.username)
+        @sender.friends.create!(friend_username: @receiver.username)
 
        @friend_request.destroy
        redirect_to user_path(current_user.id), notice: 'Accepted Friend Request'

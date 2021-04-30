@@ -5,38 +5,37 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
          has_many :posts, dependent: :destroy
          has_many :comments, as: :commentable, dependent: :destroy
-         has_many :friends, class_name: 'User', foreign_key: 'friend_id'
-       # has_many :friend_requests, class_name: 'User', foreign_key: 'friend_request_id'
+         has_many :friends
         has_many :likes, dependent: :destroy
          has_one_attached :avatar
         has_one :profile
         has_many :friend_requests
 
-         belongs_to :User, optional: true
+        
          
 
          def already_friends?(friend)
-          if self.friends.exists?(friend.id)
-            return true
-          end
-          false
-         end
-
-
-         def already_requested?(friend,current_user)
-          if friend.friend_requests.exists?(FriendRequest.find_request(current_user.id,friend.id).take.id)    
-            return true
-          end
-          false
-         end
-
-         def aaalready_requested?(friend,current_user)
-          friend.friend_requests.each do |request|
-            if request.sender_id == current_user.id
-            return true
+          if friend != nil 
+            if self.friends.pluck(:friend_username).include?(friend.username)
+              return true
             end
           end
           false
          end
 
+         def request_ids
+         requestsID = self.friend_requests.pluck(:sender_id)
+         end
+
+         def already_requested?(receiver,sender)
+          request = FriendRequest.where('recipient_id == ? AND sender_id == ?',receiver.id,sender.id).take
+          requestID = nil 
+          if request != nil
+            requestID = request.id   
+          end
+            if receiver.friend_requests.exists?(requestID)
+              return true
+            end 
+          false
+         end
 end

@@ -4,7 +4,8 @@
     <%end%>
     <%=user.username%>
     <%p user.friend_requests%>
+    <% if current_user.request_ids.include?(user.id.to_s) == false%>
     <%if current_user != user && user.already_requested?(user,current_user) == false && current_user.already_friends?(user) == false%>   
         <%=button_to 'Send Friend Request', friend_request_index_path, :params => {:recipient_id => user.id, :sender_id => current_user.id}%>
-    <%end%><br/><br/>
+    <%end%><%end%><br/><br/>
 <%end%>
