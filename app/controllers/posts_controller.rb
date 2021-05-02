@@ -11,7 +11,7 @@ class PostsController < ApplicationController
         @user_list.each do |user|
             @user_posts << user.posts
         end
-        @timeline_posts = Post.order(post_date: :desc).merge(@user_posts.flatten)
+        @timeline_posts = Post.order(created_at: :desc).merge(@user_posts.flatten)
     end
 
     def new
@@ -20,7 +20,7 @@ class PostsController < ApplicationController
 
     def create
         @post = current_user.posts.build(post_params)
-        @post.post_date = DateTime.now
+       # @post.post_date = TimeStamp.now
 
         if @post.save!
             redirect_to user_path(current_user.id), notice: 'Post successfully created'
