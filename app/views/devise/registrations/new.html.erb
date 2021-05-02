@@ -8,6 +8,11 @@
     <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
   </div>
 
+    <div class="field">
+    <%= f.label :username %><br />
+    <%= f.text_field :username, autocomplete: "username" %>
+  </div>
+
   <div class="field">
     <%= f.label :password %>
     <% if @minimum_password_length %>
@@ -24,6 +29,7 @@
   <div class="actions">
     <%= f.submit "Sign up" %>
   </div>
+ 
 <% end %>
-
+ <%= button_to "Sign in with Facebook", user_facebook_omniauth_authorize_path %>
 <%= render "devise/shared/links" %>

@@ -2,10 +2,14 @@ source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '3.0.0'
-gem 'devise', '~> 4.7', '>= 4.7.3'
-gem 'omniauth', '~> 2.0', '>= 2.0.4'
+gem "letter_opener", :group => :development
+gem 'devise', github: 'heartcombo/devise'
+gem 'omniauth-oauth2', '~> 1.7', '>= 1.7.1'
+gem 'omniauth-facebook', '~> 8.0'
+gem 'omniauth-rails_csrf_protection'
 gem 'guard', '~> 2.16', '>= 2.16.2'
 gem 'bulma-rails', '~> 0.9.1'
+gem 'figaro', '~> 1.2'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails', branch: 'main'
 gem 'rails', '~> 6.1.3', '>= 6.1.3.1'
 # Use sqlite3 as the database for Active Record

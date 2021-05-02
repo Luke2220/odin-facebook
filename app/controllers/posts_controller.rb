@@ -4,7 +4,7 @@ class PostsController < ApplicationController
         @user_list = Array.new
 
         current_user.friends.each do |friend|
-            @user_list << friend
+            @user_list << User.find(friend.user_id)
         end
         @user_list << current_user
 
