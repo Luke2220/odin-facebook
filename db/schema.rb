@@ -45,7 +45,7 @@ ActiveRecord::Schema.define(version: 2021_05_01_173223) do
 
   create_table "comments", force: :cascade do |t|
     t.string "content"
-    t.string "commentable_id"
+    t.integer "commentable_id"
     t.string "commentable_type"
     t.string "author_name"
     t.datetime "created_at", precision: 6, null: false
@@ -53,24 +53,24 @@ ActiveRecord::Schema.define(version: 2021_05_01_173223) do
   end
 
   create_table "friend_requests", force: :cascade do |t|
-    t.string "user_id"
-    t.string "recipient_id"
-    t.string "sender_id"
+    t.integer "user_id"
+    t.integer "recipient_id"
+    t.integer "sender_id"
     t.string "sender_name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "friends", force: :cascade do |t|
-    t.string "user_id"
+    t.integer "user_id"
     t.string "friend_username"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "likes", force: :cascade do |t|
-    t.string "user_id"
-    t.string "post_id"
+    t.integer "user_id"
+    t.integer "post_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -78,14 +78,14 @@ ActiveRecord::Schema.define(version: 2021_05_01_173223) do
   create_table "posts", force: :cascade do |t|
     t.string "title"
     t.string "body"
-    t.string "user_id"
+    t.integer "user_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "profiles", force: :cascade do |t|
     t.string "bio"
-    t.string "user_id"
+    t.integer "user_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -93,8 +93,8 @@ ActiveRecord::Schema.define(version: 2021_05_01_173223) do
   create_table "users", force: :cascade do |t|
     t.string "username"
     t.string "password"
-    t.string "friend_id"
-    t.string "friend_request_id"
+    t.integer "friend_id"
+    t.integer "friend_request_id"
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"

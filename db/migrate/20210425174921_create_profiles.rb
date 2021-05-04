@@ -3,7 +3,7 @@ class CreateProfiles < ActiveRecord::Migration[6.1]
     create_table :profiles do |t|
 
       t.string :bio
-      t.string :user_id
+      t.integer :user_id
       t.timestamps
     end
   end
