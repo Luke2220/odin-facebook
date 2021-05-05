@@ -20,7 +20,7 @@ class PostsController < ApplicationController
 
     def create
         @post = current_user.posts.build(post_params)
-       # @post.post_date = TimeStamp.now
+        @post.image.attach(params[:post][:image])
 
         if @post.save!
             redirect_to user_path(current_user.id), notice: 'Post successfully created'
@@ -29,10 +29,16 @@ class PostsController < ApplicationController
         end
     end
 
+    def destroy
+        @post = Post.find(params[:id])
+        @post.destroy
+        redirect_to user_path(current_user.id), notice: 'post deleted'
+    end
+
     private
 
 def post_params
-    params.require(:post).permit(:title,:body)
+    params.require(:post).permit(:title,:body,:image)
 end
 
 end

@@ -6,7 +6,7 @@ class CommentController < ApplicationController
     end
 
     def create
-        @post = Post.find(params[:post_id])
+        @post = params[:object_name].constantize.find(params[:object_id])
         @user = User.find(params[:user_id])
         
         @comment = @post.comments.build(content: params[:content])

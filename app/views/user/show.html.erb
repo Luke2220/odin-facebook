@@ -17,27 +17,40 @@
     <%if @user.avatar.attached?%>
         <%=image_tag(@user.profile.avatar)%>
     <%end%>
+    <%@user.profile.comments.each do |comment|%>
+        <p><%=comment.author_name%>'s comment:</p>
+        <p><%=comment.content%></p><br/>
+    <%end%>
+     <%= render 'comment/comment_form', :user => current_user.id, :object => @user.profile.id,:object_name => @user.profile.class.name%>
 <%end%>
-
-<p><%=@user.username%>'s posts: </p>
+<br/><br/><br/>
+<h2><%=@user.username%>'s posts: </h2>
 <%@user.posts.each do |post|%>
 
-<p><%=post.title%></p>
-<p><%=post.body%></p>
+    <p><%=post.title%></p>
+    <p><%=post.body%></p>
+    <%if post.image.attached?%>
+        <%=image_tag(post.image)%>
+    <%end%>
 
-<%if current_user.id != @user.id%>
-    <%if post.liked?(@user) == false%>
-        <%= link_to 'Like', new_like_path(:user_id => @user.id, :post_id => post.id)%>
-    <%else%>
-        <%= link_to 'Unlike', like_path(post.get_like(@user)), method: :delete%>
-    <%end%><br/><br/>
-<%end%>
+    <%if current_user.id != @user.id%>
+        <%if post.liked?(@user) == false%>
+            <%= link_to 'Like', new_like_path(:user_id => @user.id, :post_id => post.id)%>
+        <%else%>
+            <%= link_to 'Unlike', like_path(post.get_like(@user)), method: :delete%>
+        <%end%>
+    <%end%>
 
 
-<%post.comments.each do |comment|%>
-    <p><%=comment.author_name%>'s comment:</p>
-    <p><%=comment.content%></p><br/>
-<%end%><br/>
+    <%post.comments.each do |comment|%>
+        <p><%=comment.author_name%>'s comment:</p>
+        <p><%=comment.content%></p><br/>
+    <%end%>
 
-    <%= render 'comment/comment_form', :user => current_user.id, :post => post.id%>
-<%end%>
+        <%if current_user.id != @user.id%>
+        <br/>
+            <%= render 'comment/comment_form', :user => current_user.id, :object => post.id, :object_name => post.class.name%>
+        <%else%>
+            <%=link_to 'Delete above post', post_path(post), method: :delete%>
+        <%end%><br/><br/>
+    <%end%>

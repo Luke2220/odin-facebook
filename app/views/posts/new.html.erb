@@ -6,5 +6,8 @@
     <%=f.label :body, 'Body of your post:'%><br/>
     <%= f.text_area :body%><br/>
 
+    <%=f.label :image, 'Optional post image:'%><br/>
+    <%= f.file_field :image%><br/>
+
     <%=f.submit 'Create Post'%>
 <%end%>

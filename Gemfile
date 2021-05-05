@@ -10,6 +10,7 @@ gem 'omniauth-rails_csrf_protection'
 gem 'guard', '~> 2.16', '>= 2.16.2'
 gem 'bulma-rails', '~> 0.9.1'
 gem 'figaro', '~> 1.2'
+gem 'image_processing'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails', branch: 'main'
 gem 'rails', '~> 6.1.3', '>= 6.1.3.1'
 # Use sqlite3 as the database for Active Record

@@ -2,5 +2,7 @@
     
     <%= post.title%><br/>
     <%=post.body%><br/><br/>
-
+    <%if post.image.attached?%>   
+            <%=image_tag(post.image)%>
+    <%end%>
 <%end%>
