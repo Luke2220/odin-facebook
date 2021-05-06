@@ -1,7 +1,7 @@
 
 <p><%=@user.username%>'s profile</p>
 
-<% if current_user.id != @user.id%>
+<% if current_user.id != @user.id && @user.already_requested?(@user,current_user) == false && current_user.already_friends?(@user) == false%>%>
     <%=button_to 'Send Friend Request', friend_request_index_path, :params => {:recipient_id => @user.id, :sender_id => current_user.id}%>
 <%end%> 
 <br/>
