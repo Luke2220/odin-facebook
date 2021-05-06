@@ -11,6 +11,8 @@ class ProfilesController < ApplicationController
 
     def update
         @profile = Profile.find(params[:id])
+        User.find(@profile.user_id).avatar.attach(params[:profile][:avatar])
+
         if @profile.update!(profile_params)
             redirect_to user_path(current_user.id), notice: 'Profile Updated'
         else

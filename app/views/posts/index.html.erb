@@ -1,8 +1,12 @@
+<% if @timeline_posts.empty?%>
+<p>Make Friends to see their posts here!</p>
+<% end %>
+
 <br/><%@timeline_posts.each do |post|%>
     
     <%= post.title%><br/>
     <%=post.body%><br/><br/>
     <%if post.image.attached?%>   
-            <%=image_tag(post.image)%>
+            <%=image_tag(post.image.variant(resize_to_limit: [150,150]))%>
     <%end%>
 <%end%>

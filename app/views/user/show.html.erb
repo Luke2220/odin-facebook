@@ -1,3 +1,6 @@
+
+<p><%=@user.username%>'s profile</p>
+
 <% if current_user.id != @user.id%>
     <%=button_to 'Send Friend Request', friend_request_index_path, :params => {:recipient_id => @user.id, :sender_id => current_user.id}%>
 <%end%> 
@@ -15,7 +18,8 @@
 <%if @user.profile%>
 <%=@user.profile.bio%>
     <%if @user.avatar.attached?%>
-        <%=image_tag(@user.profile.avatar)%>
+    <br/>
+        <%=image_tag(@user.profile.avatar.variant(resize_to_limit: [150,150]))%>
     <%end%>
     <%@user.profile.comments.each do |comment|%>
         <p><%=comment.author_name%>'s comment:</p>
@@ -30,7 +34,7 @@
     <p><%=post.title%></p>
     <p><%=post.body%></p>
     <%if post.image.attached?%>
-        <%=image_tag(post.image)%>
+        <%=image_tag(post.image.variant(resize_to_limit: [150,150]))%>
     <%end%>
 
     <%if current_user.id != @user.id%>
