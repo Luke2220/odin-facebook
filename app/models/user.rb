@@ -30,7 +30,7 @@ class User < ApplicationRecord
          end
 
          def already_requested?(receiver,sender)
-          request = FriendRequest.where('recipient_id = $1 AND sender_id = $2',receiver.id,sender.id).take
+          request = FriendRequest.where("recipient_id = ? AND sender_id = ?",receiver.id,sender.id).take
           requestID = nil 
           if request != nil
             requestID = request.id   
